@@ -75,7 +75,7 @@ uint32_t calculateUnixTime()
 }
 
 Error M9N::init() {
-    if (!m9n.begin()) {
+    if (!m9n.begin(Wire1)) {
         return M9N_ERROR;
     }
     m9n.setI2COutput(COM_TYPE_UBX);
@@ -89,15 +89,16 @@ Error M9N::init() {
     bool sivCheck = true;
 
     //Make it not block
-    while (sivCheck) {
+    while (mostRecentSIV < 3) {
         m9n.checkUblox();
         m9n.checkCallbacks();
-        switch (mostRecentSIV) {
-            // TODO ERRORS
-            default:
-                sivCheck = false;
-                break;
-        }
+        Serial.println(mostRecentSIV);
+        // switch (mostRecentSIV) {
+        //     // TODO ERRORS
+        //     default:
+        //         //sivCheck = false;
+        //         break;
+        // }
     }
     return NO_ERROR;
 }

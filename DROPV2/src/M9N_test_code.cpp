@@ -14,13 +14,22 @@ M9N gps = M9N();
 //Adafruit_BME680 bme(BME_CS, BME_MOSI, BME_MISO, BME_SCK);
 
 void setup() {
+
+  Wire1.setSDA(14);
+    Wire1.setSCL(15);
+    Wire1.begin();
+    
   Serial.begin(9600);
   Serial.println(F("M9N test"));
 
-  gps.init(); 
+  while (gps.init() == M9N_ERROR){
+    Serial.print("whoops");
+  } 
 }
 
 void loop() {
+  gps.prefetchData();
+
   latitude = gps.getLatitude();
   longitude = gps.getLongitude();
   altitude = gps.getAltitude();
