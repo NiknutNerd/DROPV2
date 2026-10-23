@@ -16,15 +16,16 @@ M9N gps = M9N();
 void setup() {
 
   Wire1.setSDA(14);
-    Wire1.setSCL(15);
-    Wire1.begin();
+  Wire1.setSCL(15);
+  Wire1.begin();
     
   Serial.begin(9600);
   Serial.println(F("M9N test"));
 
   while (gps.init() == M9N_ERROR){
-    Serial.print("whoops");
+    Serial.println("whoops");
   } 
+  
 }
 
 void loop() {
@@ -35,16 +36,17 @@ void loop() {
   altitude = gps.getAltitude();
 
   Serial.print("Lat: ");
-  Serial.print(latitude);
-  Serial.print("\n");
+  Serial.println(latitude);
 
   Serial.print("Lon: ");
-  Serial.print(longitude);
-  Serial.print("\n");
+  Serial.println(longitude);
 
   Serial.print("Alt: ");
-  Serial.print(altitude);
-  Serial.print("\n");
+  Serial.println(altitude);
+
+  Serial.print("SIV: ");
+  Serial.print(gps.getSIV());
+  Serial.println("\n");
 
   delay(100);
 
