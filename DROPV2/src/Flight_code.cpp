@@ -1,18 +1,71 @@
 #include <Arduino.h>
 
-// put function declarations here:
-int myFunction(int, int);
+#include <SparkFun_u-blox_GNSS_Arduino_Library.h>
+#include "SHC_M9N.cpp"
+
+//test
+M9N gps = M9N();
 
 void setup() {
   // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+  gps.init();
+
+
+
 }
 
-void loop() {
-  // put your main code here, to run repeatedly:
+const int LED = 1; //temp
+
+
+enum FlightState {
+    STANDBY = 0,
+    RELEASE = 1,
+};
+
+FlightState state = STANDBY;
+
+void updateFlightState(){
+    switch(state){
+        case STANDBY:
+        //if(){
+
+        //}//delta alt = positive)
+        break;
+
+        case RELEASE:
+        //if(){
+
+        //}
+        break;
+
+        default:
+
+    }
 }
 
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
+void stateActions(){
+    switch(state){
+        case STANDBY:
+        //if(){
+
+        //}//delta alt = positive)
+        break;
+
+        case RELEASE:
+        //if(){
+
+        //}
+        break;
+
+        default:
+
+    }
+} 
+
+int main()
+{
+  gps.prefetchData();
+  updateFlightState();
+  stateActions();
+
 }
