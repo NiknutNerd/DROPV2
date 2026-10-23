@@ -20,8 +20,8 @@
  
 
 void setup() {
-    WIRE.setSDA(15);
-    WIRE.setSCL(14);
+    WIRE.setSDA(14);
+    WIRE.setSCL(15);
     WIRE.begin();
 
 
