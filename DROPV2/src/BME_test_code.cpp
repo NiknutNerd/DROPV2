@@ -34,9 +34,10 @@ Adafruit_BME680 bme; // I2C
 void setup() {
   Serial.begin(9600);
   Serial.println(F("BME680 async test"));
-  // Wire.setSDA(15);
-  // Wire.setSCL(14);
-  // Wire.begin();
+  Wire1.setSDA(14);
+  Wire1.setSCL(15);
+  Wire1.begin();
+  bme=Adafruit_BME680(&Wire1);
 
   while (!bme.begin()) {
     Serial.println(F("Could not find a valid BME680 sensor, check wiring!"));
