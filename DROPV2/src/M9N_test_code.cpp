@@ -23,8 +23,13 @@ void setup() {
   //Serial.println(F("M9N test"));
 
   while (gps.init() == M9N_ERROR){
+<<<<<<< HEAD
     Serial.print("M9N Not Initialized");
+=======
+    Serial.println("whoops");
+>>>>>>> bba7850e4f82a19693121b0ba504bec754391727
   } 
+  
 }
 
 void loop() {
@@ -35,16 +40,17 @@ void loop() {
   altitude = gps.getAltitude();
 
   Serial.print("Lat: ");
-  Serial.print(latitude);
-  Serial.print("\n");
+  Serial.println(latitude);
 
   Serial.print("Lon: ");
-  Serial.print(longitude);
-  Serial.print("\n");
+  Serial.println(longitude);
 
   Serial.print("Alt: ");
-  Serial.print(altitude);
-  Serial.print("\n");
+  Serial.println(altitude);
+
+  Serial.print("SIV: ");
+  Serial.print(gps.getSIV());
+  Serial.println("\n");
 
   delay(100);
 

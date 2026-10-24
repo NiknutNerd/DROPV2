@@ -92,6 +92,7 @@ Error M9N::init() {
     while (sivCheck) {
         m9n.checkUblox();
         m9n.checkCallbacks();
+        Serial.print("SIV: ");
         Serial.println(mostRecentSIV);
         // switch (mostRecentSIV) {
         //     // TODO ERRORS
