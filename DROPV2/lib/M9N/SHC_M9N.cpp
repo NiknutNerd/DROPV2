@@ -86,10 +86,10 @@ Error M9N::init() {
     m9n.saveConfiguration();
     m9n.setAutoPVTcallbackPtr(&pvtCallback);
 
-    bool sivCheck = true;
+    bool sivCheck = false;
 
     //Make it not block
-    while (mostRecentSIV < 3) {
+    while (sivCheck) {
         m9n.checkUblox();
         m9n.checkCallbacks();
         Serial.println(mostRecentSIV);

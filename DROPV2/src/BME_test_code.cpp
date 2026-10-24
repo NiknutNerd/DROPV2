@@ -20,10 +20,10 @@
 #include <Adafruit_Sensor.h>
 #include "Adafruit_BME680.h"
 
-#define BME_SCK 13
-#define BME_MISO 15
-#define BME_MOSI 14
-#define BME_CS 10
+// #define BME_SCK 13
+// #define BME_MISO 15
+// #define BME_MOSI 14
+// #define BME_CS 10
 
 #define SEALEVELPRESSURE_HPA (1013.25)
 
@@ -39,7 +39,7 @@ void setup() {
   Wire1.begin();
   bme=Adafruit_BME680(&Wire1);
 
-  while (!bme.begin()) {
+  while (!bme.begin(0x76, &Wire1)) {
     Serial.println(F("Could not find a valid BME680 sensor, check wiring!"));
     delay(500);
   }

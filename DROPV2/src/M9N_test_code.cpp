@@ -16,14 +16,14 @@ M9N gps = M9N();
 void setup() {
 
   Wire1.setSDA(14);
-    Wire1.setSCL(15);
-    Wire1.begin();
+  Wire1.setSCL(15);
+  Wire1.begin();
     
   Serial.begin(9600);
-  Serial.println(F("M9N test"));
+  //Serial.println(F("M9N test"));
 
   while (gps.init() == M9N_ERROR){
-    Serial.print("whoops");
+    Serial.print("M9N Not Initialized");
   } 
 }
 
