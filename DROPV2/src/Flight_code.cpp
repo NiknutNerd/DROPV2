@@ -8,54 +8,55 @@
 #include "Adafruit_BME680.h"
 #include "Servo.h"
 
-#define BME_SCK 13
-#define BME_MISO 15
-#define BME_MOSI 14
-#define BME_CS 10
+// #define BME_SCK 13
+// #define BME_MISO 15
+// #define BME_MOSI 14
+// #define BME_CS 10
 
-#define SEALEVELPRESSURE_HPA (1013.25)
+#define SEALEVELPRESSURE_HPA (1026.75)
 
-const int SERVO_PIN = 11;
+const int SERVO_PIN = 20; //physical 26
 
-double latitude = 0.0;
-double longitude = 0.0;
-double gpsAlt = 0.0;
-int SIV = 0;
+// double latitude = 0.0;
+// double longitude = 0.0;
+// double gpsAlt = 0.0;
+// int SIV = 0;
 
 double bmeAlt = 0.0;
 
 const double RELEASE_ALT = 600.0;
 const double GROUND_ALT = 244.0;
 
-M9N gps = M9N();
+//M9N gps = M9N();
 Adafruit_BME680 bme; 
 Servo MG995; 
 
 void setup() {
   // put your setup code here, to run once:
 
-  Serial.begin(9600);
+  //Serial.begin(9600);
+  delay(2000);
 
   pinMode(25, OUTPUT);
   digitalWrite(25, HIGH);
 
   MG995.attach(SERVO_PIN);
 
-  Wire1.setSDA(14);
-  Wire1.setSCL(15);
-  Wire1.begin();
+  Wire.setSDA(4);
+  Wire.setSCL(5);
+  Wire.begin();
     
   
-  Serial.println(F("M9N test"));
+  //Serial.println(F("M9N test"));
 
   // while (gps.init() == M9N_ERROR){
   //   Serial.print("M9N Not Initialized");
   // }
 
-  bme=Adafruit_BME680(&Wire1);
+  bme=Adafruit_BME680(&Wire);
 
   while (!bme.begin()) {
-    Serial.println(F("Could not find a valid BME680 sensor, check wiring!"));
+    //Serial.println(F("Could not find a valid BME680 sensor, check wiring!"));
     delay(500);
   }
 
@@ -76,7 +77,7 @@ void setup() {
   delay(200);
 
   MG995.write(179);
-  delay(3000);
+  delay(500);
   MG995.write(0);
   delay(3000);
 }
@@ -92,7 +93,7 @@ void stateMachine(){
     switch(state){
         case STANDBY:
         //do nothing
-        if(bmeAlt >= (RELEASE_ALT + GROUND_ALT) || gpsAlt >= (RELEASE_ALT + GROUND_ALT)){
+        if(bmeAlt >= (RELEASE_ALT + GROUND_ALT)){
           MG995.write(179);
           delay(5000);
           MG995.write(0);
@@ -106,40 +107,37 @@ void stateMachine(){
         break;
 
         case RELEASE:
-        if(bmeAlt >= (RELEASE_ALT + GROUND_ALT) || gpsAlt >= (RELEASE_ALT + GROUND_ALT)){
-          MG995.write(179);
-          delay(5000);
-          MG995.write(0);
-          delay(5000);
-          MG995.write(179);
-          delay(5000);
-          MG995.write(0);
-          delay(5000);
-        }
+        MG995.write(179);
+        delay(5000);
+        MG995.write(0);
+        delay(5000);
+        MG995.write(179);
+        delay(5000);
+        MG995.write(0);
+        delay(5000);
         
         break;
 
-        default:
-
-    }
+      }  
 }
 
 void loop()
 {
-  gps.prefetchData();
+  // Serial.print("entering loop");
+  // gps.prefetchData();
   bme.performReading();
 
   bmeAlt = bme.readAltitude(SEALEVELPRESSURE_HPA);
 
-  latitude = gps.getLatitude();
-  longitude = gps.getLongitude();
-  gpsAlt = gps.getAltitude();
+  // latitude = gps.getLatitude();
+  // longitude = gps.getLongitude();
+  // gpsAlt = gps.getAltitude();
 
-  Serial.print(bmeAlt);
-  Serial.print("\n");
+  // Serial.print(bmeAlt);
+  // Serial.print("\n");
 
   stateMachine();
 
-  delay(50);
+  delay(100);
 
 }

@@ -10,7 +10,7 @@
 #include <Wire.h>
 
 // Set I2C bus to use: Wire, Wire1, etc.
-#define WIRE Wire1
+#define WIRE Wire
 
 // #define SDA_0 14
 // #define SCL_0 15
@@ -20,8 +20,8 @@
  
 
 void setup() {
-    WIRE.setSDA(14);
-    WIRE.setSCL(15);
+    WIRE.setSDA(4);
+    WIRE.setSCL(5);
     WIRE.begin();
 
 

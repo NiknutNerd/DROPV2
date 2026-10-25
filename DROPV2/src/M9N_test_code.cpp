@@ -23,11 +23,7 @@ void setup() {
   //Serial.println(F("M9N test"));
 
   while (gps.init() == M9N_ERROR){
-<<<<<<< HEAD
     Serial.print("M9N Not Initialized");
-=======
-    Serial.println("whoops");
->>>>>>> bba7850e4f82a19693121b0ba504bec754391727
   } 
   
 }
