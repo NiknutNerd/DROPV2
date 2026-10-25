@@ -24,7 +24,7 @@ const int SERVO_PIN = 20; //physical 26
 
 double bmeAlt = 0.0;
 
-const double RELEASE_ALT = 600.0;
+const double RELEASE_ALT = 650.0;
 const double GROUND_ALT = 244.0;
 
 //M9N gps = M9N();
@@ -40,7 +40,7 @@ void setup() {
   pinMode(25, OUTPUT);
   digitalWrite(25, HIGH);
 
-  MG995.attach(SERVO_PIN);
+  //MG995.attach(SERVO_PIN);
 
   Wire.setSDA(4);
   Wire.setSCL(5);
@@ -76,10 +76,10 @@ void setup() {
   bme.readAltitude(SEALEVELPRESSURE_HPA);
   delay(200);
 
-  MG995.write(179);
-  delay(500);
-  MG995.write(0);
-  delay(3000);
+  // MG995.write(179);
+  // delay(500);
+  // MG995.write(0);
+  // delay(3000);
 }
 
 enum FlightState {
@@ -94,6 +94,8 @@ void stateMachine(){
         case STANDBY:
         //do nothing
         if(bmeAlt >= (RELEASE_ALT + GROUND_ALT)){
+          MG995.attach(SERVO_PIN);
+          delay(500);
           MG995.write(179);
           delay(5000);
           MG995.write(0);
