@@ -13,8 +13,8 @@
 // #define BME_MOSI 14
 // #define BME_CS 10
 
-#define SEALEVELPRESSURE_HPA (1026.75)
-
+// #define SEALEVELPRESSURE_HPA (1026.75)
+#define SEALEVELPRESSURE_HPA (1005.09)
 const int SERVO_PIN = 20; //physical 26
 
 // double latitude = 0.0;
@@ -25,7 +25,7 @@ const int SERVO_PIN = 20; //physical 26
 double bmeAlt = 0.0;
 
 const double RELEASE_ALT = 650.0;
-const double GROUND_ALT = 244.0;
+const double GROUND_ALT = 0;
 
 //M9N gps = M9N();
 Adafruit_BME680 bme; 
@@ -34,7 +34,7 @@ Servo MG995;
 void setup() {
   // put your setup code here, to run once:
 
-  //Serial.begin(9600);
+  Serial.begin(9600);
   delay(2000);
 
   pinMode(25, OUTPUT);
@@ -130,6 +130,7 @@ void loop()
   bme.performReading();
 
   bmeAlt = bme.readAltitude(SEALEVELPRESSURE_HPA);
+  Serial.println("Altitude: " + String(bmeAlt) + " Pressure: " + String(bme.readPressure()));
 
   // latitude = gps.getLatitude();
   // longitude = gps.getLongitude();
@@ -140,6 +141,6 @@ void loop()
 
   stateMachine();
 
-  delay(100);
+  delay(10);
 
 }
